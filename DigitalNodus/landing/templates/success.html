@@ -1,0 +1,100 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<section :class="darkMode ? 'bg-[#050811]' : 'bg-slate-50'"
+    class="py-24 min-h-[80vh] flex items-center justify-center px-6 transition-colors duration-500">
+    <div class="max-w-2xl w-full">
+        <div class="relative group" data-aos="zoom-in">
+            <div :class="darkMode ? 'opacity-25 group-hover:opacity-50' : 'opacity-0'"
+                class="absolute -inset-1 bg-gradient-to-r from-brandLight to-brandDeep rounded-[3rem] blur transition duration-1000">
+            </div>
+
+            <div :class="darkMode ? 'bg-[#0a0f1d] border-white/10' : 'bg-white border-black/5 shadow-xl'"
+                class="relative border rounded-[3rem] overflow-hidden transition-all">
+
+                <div :class="darkMode ? 'bg-brandLight/10 border-white/20' : 'bg-brandLight/5 border-black/5'"
+                    class="p-10 text-center border-b border-dashed relative">
+
+                    <div :class="darkMode ? 'bg-[#050811] border-white/10' : 'bg-slate-50 border-black/5'"
+                        class="absolute -bottom-4 -left-4 w-8 h-8 rounded-full border"></div>
+                    <div :class="darkMode ? 'bg-[#050811] border-white/10' : 'bg-slate-50 border-black/5'"
+                        class="absolute -bottom-4 -right-4 w-8 h-8 rounded-full border"></div>
+
+                    <div
+                        class="w-20 h-20 bg-brandLight rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg shadow-brandLight/30">
+                        <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-width="3" d="M5 13l4 4L19 7"></path>
+                        </svg>
+                    </div>
+                    <h2 :class="darkMode ? 'text-white' : 'text-slate-900'"
+                        class="text-3xl font-black italic uppercase tracking-tighter">Place réservée !</h2>
+                </div>
+
+                <div class="p-10">
+                    <div class="space-y-6">
+                        <div class="flex justify-between items-center">
+                            <span
+                                class="text-gray-500 text-sm uppercase font-bold tracking-widest italic">Participant</span>
+                            <span :class="darkMode ? 'text-white' : 'text-slate-900'"
+                                class="font-bold">{{ participant.all_names }}</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span
+                                class="text-gray-500 text-sm uppercase font-bold tracking-widest italic">Session</span>
+                            <span class="text-brandLight font-bold">{{ event.name }}</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-gray-500 text-sm uppercase font-bold tracking-widest italic">Lieu</span>
+                            <span :class="darkMode ? 'text-white' : 'text-slate-900'"
+                                class="font-bold">{{ event.place }}</span>
+                        </div>
+                    </div>
+                    <div class="mt-10 p-6 rounded-2xl bg-white/5 border border-white/5 text-center">
+                        <p class="text-gray-400 text-xs leading-relaxed">
+                            Un message de confirmation a été envoyé à ton WhatsApp. Présente ce ticket (capture d'écran)
+                            à l'entrée de la session.
+                        </p>
+                    </div>
+                    <div class="mt-10 flex justify-center">
+                        <a href="{% url 'index' %}"
+                            :class="darkMode ? 'text-gray-500 hover:text-white' : 'text-gray-400 hover:text-brandDeep'"
+                            class="text-center text-sm transition font-bold uppercase tracking-widest">
+                            ← Retour à l'accueil
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section :class="darkMode ? 'bg-[#050811] border-white/5' : 'bg-white border-black/5'"
+    class="py-16 border-t transition-colors duration-500">
+    <div class="max-w-4xl mx-auto px-6 text-center">
+        <h3 :class="darkMode ? 'text-white' : 'text-slate-900'"
+            class="font-black text-2xl mb-10 uppercase italic tracking-tight">
+            Ils seront présents <span class="text-brandLight italic">avec toi</span>
+        </h3>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
+            {% for p in participants %}
+            <div :class="darkMode ? 'bg-white/5 border-white/5' : 'bg-slate-50 border-black/5'"
+                class="p-4 rounded-2xl border flex items-center gap-3 transition-transform hover:scale-105">
+
+                <div
+                    class="w-10 h-10 rounded-full bg-brandLight flex items-center justify-center text-white font-black text-xs shadow-sm">
+                    {{ p.all_names|slice:":1" }}
+                </div>
+
+                <div class="text-left overflow-hidden">
+                    <p :class="darkMode ? 'text-white' : 'text-slate-900'"
+                        class="font-bold text-xs truncate uppercase tracking-tighter">{{ p.all_names }}</p>
+                    <p class="text-gray-500 text-[10px] truncate italic">{{ p.profession }}</p>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+{% endblock %}

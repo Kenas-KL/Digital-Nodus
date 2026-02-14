@@ -1,0 +1,157 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr" x-data="{ darkMode: $persist(true).as('tech_hub_theme') }" :class="{ 'dark': darkMode }">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Digital Nodus</title>
+        <meta property="og:title" content="Digital Nodus">
+        <meta property="og:description"
+            content="Connecter les talents d'ici pour transformer demain">
+        <meta property="og:image"
+            content="{% static 'dn.png' %}">
+        <meta property="og:url" content="https://whatstoreai.com/{{ shop.shop_slug }}">
+        <meta property="og:type" content="website">
+        <meta property="og:image:width" content="1200">
+        <meta property="og:image:height" content="630">
+        <link rel="icon" type="image/x-icon" href="{% static 'dn.png' %}">
+        <script src="https://cdn.tailwindcss.com"></script>
+
+        <script defer src="https://unpkg.com/@alpinejs/persist@3.x.x/dist/cdn.min.js"></script>
+        <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+
+        <script>
+            tailwind.config = {
+                darkMode: 'class',
+                theme: {
+                    extend: {
+                        colors: {
+                            brandLight: '#08b2e5',
+                            brandDeep: '#083ce5',
+                            darkPanel: '#050a15',
+                        }
+                    }
+                }
+            }
+        </script>
+
+        <style>
+            .glow-border {
+                border: 1px solid rgba(8, 178, 229, 0.3);
+            }
+
+            .glow-border:hover {
+                border-color: #08b2e5;
+                box-shadow: 0 0 15px rgba(8, 178, 229, 0.2);
+            }
+
+            .gradient-text {
+                background: linear-gradient(90deg, #08b2e5, #083ce5);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+            }
+
+            .btn-grad {
+                background: linear-gradient(135deg, #08b2e5 0%, #083ce5 100%);
+            }
+
+            .swiper-wrapper {
+                display: flex !important;
+                flex-direction: row !important;
+            }
+
+            [x-cloak] {
+                display: none !important;
+            }
+
+            /* Transition fluide pour le changement de thème */
+            body {
+                transition: background-color 0.5s ease, color 0.5s ease;
+            }
+        </style>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    </head>
+
+    <body class="dark:bg-[#020617] bg-slate-50 dark:text-gray-100 text-slate-900 font-sans">
+
+        <nav x-data="{ open: false }" :class="darkMode ? 'bg-[#0a0f1d] border-white/10' : 'bg-white border-black/5'"
+            class="fixed w-full z-50 border-b px-6 py-4 transition-colors duration-300">
+
+            <div class="max-w-7xl mx-auto flex flex-wrap justify-between items-center">
+                <a href="/" class="flex items-center">
+                    <img class="w-12 h-12" src="{% static 'dn.png' %}" alt="Logo">
+                </a>
+
+                <button @click="open = !open" :class="darkMode ? 'text-gray-400' : 'text-gray-600'"
+                    class="md:hidden hover:text-brandLight transition-colors">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path x-show="!open" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M4 6h16M4 12h16M4 18h16"></path>
+                        <path x-show="open" x-cloak stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                </button>
+
+                <div :class="open ? 'block' : 'hidden'" class="w-full md:flex md:w-auto md:items-center mt-4 md:mt-0">
+                    <div class="flex flex-col md:flex-row gap-6 text-sm font-bold tracking-widest uppercase italic">
+                        <a href="{% url 'index' %}"
+                            :class="darkMode ? 'text-gray-400 hover:text-brandLight' : 'text-gray-600 hover:text-brandDeep'"
+                            class="py-2 md:py-0 transition-colors">Accueil</a>
+
+                        <a href="{% url 'list_events' %}"
+                            :class="darkMode ? 'text-gray-400 hover:text-brandLight' : 'text-gray-600 hover:text-brandDeep'"
+                            class="py-2 md:py-0 transition-colors">Evenements</a>
+
+                        <a href="{% url 'about' %}"
+                            :class="darkMode ? 'text-gray-400 hover:text-brandLight' : 'text-gray-600 hover:text-brandDeep'"
+                            class="py-2 md:py-0 transition-colors">À propos</a>
+
+                        <button @click="darkMode = !darkMode"
+                            :class="darkMode ? 'text-gray-400 bg-white/5' : 'text-gray-600 bg-black/5'"
+                            class="text-left md:text-center px-4 py-2 rounded-xl transition-all border border-transparent hover:border-brandLight/30">
+                            <span x-text="darkMode ? '☀️ Mode Jour' : '🌙 Mode Nuit'"></span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <main class="pt-24">
+            {% block content %}
+            {% endblock %}
+        </main>
+
+        <footer class="py-12 border-t border-white/5 text-center text-xs tracking-widest opacity-40 uppercase">
+            Tanganyika Technology Community — {% now "Y" %}
+        </footer>
+
+        <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                const swiper = new Swiper(".mySwiper", {
+                    loop: true,
+                    autoplay: {
+                        delay: 2500,
+                        disableOnInteraction: false,
+                    },
+                    speed: 800,
+                    slidesPerView: 1,
+                    spaceBetween: 20,
+                    breakpoints: {
+                        640: { slidesPerView: 2, spaceBetween: 20 },
+                        1024: { slidesPerView: 3, spaceBetween: 30 }
+                    },
+                    pagination: {
+                        el: ".swiper-pagination",
+                        clickable: true,
+                    },
+                });
+            });
+        </script>
+    </body>
+
+</html>

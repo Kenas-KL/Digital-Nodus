@@ -1,0 +1,103 @@
+{% extends 'base.html' %}
+{% block content %}
+<section class="py-24 dark:bg-[#0a0f1d] border-t border-white/5" x-transition:enter="transition ease-out duration-500">
+    <div class="max-w-7xl mx-auto px-6">
+        <a href="{% url 'list_events' %}"
+            class="mb-12 text-gray-500 hover:text-white flex items-center gap-2 transition">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-width="2" d="M15 19l-7-7 7-7"></path>
+            </svg>
+            Liste d'evenements
+        </a>
+
+        <div class="grid lg:grid-cols-2 gap-16 items-start">
+            <div class="relative">
+                <div class="absolute -inset-4 btn-grad opacity-20 blur-2xl rounded-[3rem]"></div>
+                <img src="{{ event.url_image }}"
+                    class="relative rounded-[2.5rem] w-full aspect-video object-cover border dark:border-white/10 shadow-2xl">
+
+                <div class="mt-8 grid grid-cols-3 gap-4">
+                    <div class="bg-white/5 p-4 rounded-2xl border dark:border-white/5 text-center">
+                        <p class="text-[10px] text-gray-500 uppercase">Date</p>
+                        <p class="dark:text-white font-bold">{{ event.date }}</p>
+                    </div>
+                    <div class="bg-gray/5 dark:bg-white/5 p-4 rounded-2xl border dark:border-white/5 text-center">
+                        <p class="text-[10px] text-gray-500 uppercase">Heure</p>
+                        <p class="dark:text-white font-bold">{{ event.time }}</p>
+                    </div>
+                    <div class="bg-gray/5 dark:bg-white/5 p-4 rounded-2xl border dark:border-white/5 text-center">
+                        <p class="text-[10px] text-gray-500 uppercase">Lieu</p>
+                        <p class="dark:text-white font-bold text-xs uppercase">{{ event.place }}</p>
+                    </div>
+                </div>
+            </div>
+
+            <div>
+                <span class="text-brandLight font-mono tracking-widest uppercase">| {{ event.domain }}</span>
+                <h1 class="text-5xl font-black dark:text-white mt-4 mb-8">{{ event.name }}</h1>
+
+                <div class="prose prose-invert max-w-none text-gray-400 space-y-6">
+                    <p>{{ event.description }} </p>
+                </div>
+
+                <div
+                    class="mt-12 p-8 rounded-3xl bg-brandLight/5 border border-brandLight/20 flex flex-col sm:flex-row items-center justify-between gap-6">
+                    <div>
+                        <p class="dark:text-white font-bold">Places limitées !</p>
+                        <p class="text-xs text-gray-500">{% if rest_reservation > 0 %}Il ne reste que
+                            {{ rest_reservation }} places disponibles pour
+                            cette session.{% else %}Il y a plus de place pour la réservation!{% endif %}</p>
+                    </div>
+                    {% if rest_reservation > 0 %}
+                    <a href="#reservation" @click="selectedEvent = null"
+                        class="btn-grad px-8 py-4 rounded-2xl font-bold text-white text-center shadow-lg shadow-brandLight/20 hover:scale-105 transition">
+                        Réserver ma place
+                    </a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% if rest_reservation > 0 %}
+<section id="reservation" class="flex md:flex-col w-full max-w-3xl mx-auto px-6 py-12 flex justify-center items-center">
+    <h2 class="p-4 text-5xl font-black dark:text-white mt-4 mb-8">Réservez votre place</h2>
+    <form class="w-full space-y-5" method="POST">
+        {% csrf_token %}
+        <input type="text" placeholder="Nom complet" name="all_names" required
+            :class="darkMode ? 'bg-slate-500/10 border-white/5 text-white' : 'bg-slate-100 border-black/10 text-slate-900'"
+            class="w-full border rounded-2xl px-6 py-4 outline-none focus:ring-2 focus:ring-brandLight transition">
+
+        <input type="email" placeholder="Email (Optionnel)" name="email"
+            :class="darkMode ? 'bg-slate-500/10 border-white/5 text-white' : 'bg-slate-100 border-black/10 text-slate-900'"
+            class="w-full border rounded-2xl px-6 py-4 outline-none focus:ring-2 focus:ring-brandLight transition">
+
+        <input type="text" placeholder="WhatsApp | Phone 08,09" name="whatsapp_number" required
+            :class="darkMode ? 'bg-slate-500/10 border-white/5 text-white' : 'bg-slate-100 border-black/10 text-slate-900'"
+            class="w-full border rounded-2xl px-6 py-4 outline-none focus:ring-2 focus:ring-brandLight transition">
+
+        <input type="text" placeholder="Profession" name="profession" required
+            :class="darkMode ? 'bg-slate-500/10 border-white/5 text-white' : 'bg-slate-100 border-black/10 text-slate-900'"
+            class="w-full border rounded-2xl px-6 py-4 outline-none focus:ring-2 focus:ring-brandLight transition">
+
+        <div class="relative">
+            <select name="sex"
+                :class="darkMode ? 'bg-slate-500/10 border-white/5 text-white' : 'bg-slate-100 border-black/10 text-slate-900'"
+                class="w-full border rounded-2xl px-6 py-4 outline-none focus:ring-2 focus:ring-brandLight transition appearance-none cursor-pointer">
+                <option value="M" class="text-slate-900">Sexe: Masculin</option>
+                <option value="F" class="text-slate-900">Sexe: Féminin</option>
+            </select>
+            <div class="absolute inset-y-0 right-5 flex items-center pointer-events-none opacity-50">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                </svg>
+            </div>
+        </div>
+        <button type="submit"
+            class="w-full btn-grad text-white font-bold py-5 rounded-2xl hover:brightness-110 transition shadow-lg shadow-brandDeep/20 active:scale-95">
+            Réserver ma place
+        </button>
+    </form>
+</section>
+{% endif %}
+{% endblock %}

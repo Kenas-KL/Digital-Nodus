@@ -1,0 +1,99 @@
+{% extends 'base.html' %}
+{% block content %}
+<section id="about" class="py-24 dark:bg-[#050811] relative overflow-hidden">
+    <div class="absolute top-0 right-0 w-[500px] h-[500px] bg-brandDeep/5 blur-[150px] rounded-full"></div>
+
+    <div class="max-w-7xl mx-auto px-6">
+        <div class="text-center max-w-3xl mx-auto mb-20">
+            <span
+                class="btn-grad text-[10px] font-bold px-4 py-1.5 rounded-full uppercase tracking-[0.2em] text-white">À
+                propos de la communauté</span>
+            <h2 class="text-4xl md:text-6xl font-black dark:text-white mt-6 mb-6">Plus qu'un centre, <br><span
+                    class="gradient-text">une révolution.</span></h2>
+            <p class="text-gray-400 text-lg">Digital Nodus est un espace technologique inclusif et dynamique dédié à la
+                collaboration, à l’apprentissage et à l’innovation.</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+
+            <div
+                class="md:col-span-2 group relative p-10 rounded-[2.5rem] dark:bg-[#0a0f1d] border dark:border-white/5 overflow-hidden transition-all hover:border-brandLight/30">
+                <div class="relative z-10">
+                    <div
+                        class="w-12 h-12 rounded-2xl bg-brandLight/10 flex items-center justify-center mb-6 text-brandLight">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-2xl font-bold dark:text-white mb-4">Innovation Locale, Impact Global</h3>
+                    <p class="text-gray-400 leading-relaxed max-w-md">
+                        Elle rassemble des étudiants, des professionnels, des entreprises et des organisations animés
+                        par une même ambition : utiliser le numérique comme levier pour résoudre les défis locaux et
+                        contribuer au développement durable de la communauté.
+                        <br>
+                        <br>
+                        Nous croyons fermement que la technologie, lorsqu’elle est partagée et accessible, devient une
+                        force collective capable de générer un impact réel.
+                    </p>
+                </div>
+                <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=800"
+                    class="absolute right-0 bottom-0 w-1/2 h-full object-cover opacity-10 grayscale group-hover:opacity-20 transition-opacity">
+            </div>
+
+            <div
+                class="group p-10 rounded-[2.5rem] bg-brandLight flex flex-col justify-center items-center text-center transition-transform hover:scale-[1.02]">
+                <p class="text-6xl font-black text-darkBg tracking-tighter italic">95%</p>
+                <p class="text-darkBg/70 font-bold uppercase text-xs mt-2">Taux de pratique</p>
+                <p class="text-darkBg text-sm mt-4 font-medium italic">"Moins de théorie, plus dans le concrèt pratique"
+                </p>
+            </div>
+
+            <div
+                class="p-10 rounded-[2.5rem] dark:bg-[#0a0f1d] border dark:border-white/5 flex flex-col justify-between hover:bg-white/[0.02] transition">
+                <div class="flex -space-x-4">
+                    <div class="w-12 h-12 rounded-full border-2 border-[#0a0f1d] bg-gray-700"></div>
+                    <div class="w-12 h-12 rounded-full border-2 border-[#0a0f1d] bg-brandLight/50"></div>
+                    <div class="w-12 h-12 rounded-full border-2 border-[#0a0f1d] bg-brandDeep"></div>
+                    <div
+                        class="w-12 h-12 rounded-full border-2 border-[#0a0f1d] bg-white flex items-center justify-center text-[10px] font-bold text-black">
+                        {{ members }}+
+                    </div>
+                </div>
+                <div>
+                    <h4 class="dark:text-white font-bold text-xl mb-2">Communauté Active</h4>
+                    <p class="text-gray-500 text-sm">À travers des rencontres, des formations, des échanges de
+                        connaissances et des projets collaboratifs, nous créons un écosystème technologique vivant où
+                        les idées se transforment en solutions concrètes.
+                        <br>
+
+                    </p>
+                </div>
+            </div>
+
+            <div
+                class="md:col-span-2 group relative p-10 rounded-[2.5rem] dark:bg-[#0a0f1d] border dark:border-white/5 overflow-hidden flex flex-col md:flex-row items-center gap-8 hover:border-brandDeep/30">
+                <div class="flex-1">
+                    <h3 class="text-2xl font-bold dark:text-white mb-4">Notre mission est de rassembler, former et
+                        connecter
+                        les passionnés de technologie afin de :</h3>
+                    <p class="text-gray-400">
+                        favoriser le partage de connaissances,
+                        stimuler l’innovation locale
+                        concevoir et déployer des solutions numériques utiles et adaptées aux besoins de la communauté.
+
+                    </p>
+                </div>
+                <div
+                    class="w-full md:w-1/3 aspect-square bg-gradient-to-br from-brandDeep/20 to-brandLight/20 rounded-3xl flex items-center justify-center">
+                    <svg class="w-20 h-20 text-white/20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-width="1"
+                            d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z">
+                        </path>
+                    </svg>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+{% endblock %}
