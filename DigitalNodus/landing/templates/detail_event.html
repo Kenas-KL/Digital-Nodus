@@ -60,7 +60,7 @@
     </div>
 </section>
 {% if rest_reservation > 0 %}
-<section id="reservation" class="flex md:flex-col w-full max-w-3xl mx-auto px-6 py-12 flex justify-center items-center">
+<section id="reservation" class="flex flex-col md:flex-row w-full max-w-3xl mx-auto px-6 py-12 justify-center items-center">
     <h2 class="p-4 text-5xl font-black dark:text-white mt-4 mb-8">Réservez votre place</h2>
     <form class="w-full space-y-5" method="POST">
         {% csrf_token %}
