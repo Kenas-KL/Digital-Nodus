@@ -164,7 +164,7 @@ def register(request):
                 email=email, 
                 whatsapp_number = whatsapp_number,
                 profession=profession,
-                sex = "M" if sex == "Sexe: Masculin" else "F",
+                sex = "M" if sex == "M" else "F",
                 institution = institution,
                 reason = reason
             )
