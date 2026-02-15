@@ -82,7 +82,7 @@ def detail_event(request, pk: int):
                 email=email, 
                 whatsapp_number = whatsapp_number,
                 profession=profession or "-",
-                sex = "M" if sex == "Sexe: Masculin" else "F",
+                sex = "M" if sex == "M" else "F",
             )
 
             send_whatsapp_msg(names, whatsapp_number, f"""
